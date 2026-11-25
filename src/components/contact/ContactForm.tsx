@@ -25,7 +25,7 @@ export function ContactForm({
 }) {
   const startingService = serviceSlugs.includes(initialService as ServiceSlug)
     ? (initialService as ServiceSlug)
-    : "database-storage";
+    : "join";
   const startingChannel = initialChannel === "whatsapp" ? "whatsapp" : "mail";
 
   const [name, setName] = useState("");
@@ -173,18 +173,18 @@ export function ContactForm({
               required={channel === "whatsapp"}
             />
           </Field>
-          <Field id="organisation" label="Organisation" error="">
+          <Field id="organisation" label="City" error="">
             <Input
               id="organisation"
               name="organisation"
-              autoComplete="organization"
+              autoComplete="address-level2"
               value={organisation}
               onChange={(event) => setOrganisation(event.target.value)}
               className={fieldClass}
             />
           </Field>
         </div>
-        <Field id="service" label="System" error={errorField === "service" ? errorMessage : ""}>
+        <Field id="service" label="I want to" error={errorField === "service" ? errorMessage : ""}>
           <select
             id="service"
             name="service"
@@ -247,7 +247,7 @@ export function ContactForm({
           </p>
         ) : null}
         <Button type="submit" size="xl" disabled={status.kind === "submitting"}>
-          {status.kind === "submitting" ? "Sending the note…" : "Send to the desk"}
+          {status.kind === "submitting" ? "Sending…" : "Request a place"}
         </Button>
       </div>
     </form>

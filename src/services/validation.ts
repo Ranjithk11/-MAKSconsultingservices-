@@ -12,7 +12,7 @@ export const contactSchema = z
       .email("Enter a valid email address."),
     phone: z.string().trim().max(24).optional().default(""),
     organisation: z.string().trim().max(120).optional().default(""),
-    service: z.enum(serviceSlugs, "Choose one of the five systems."),
+    service: z.enum(serviceSlugs, "Choose what you want to ask about."),
     message: z
       .string()
       .trim()

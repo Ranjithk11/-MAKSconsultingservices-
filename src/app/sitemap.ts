@@ -1,14 +1,8 @@
 import type { MetadataRoute } from "next";
-import { services, siteUrl } from "@/content/site";
+import { siteUrl } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = [
-    "",
-    "/practice",
-    "/services",
-    "/contact",
-    ...services.map((service) => `/services/${service.slug}`),
-  ];
+  const paths = ["", "/practice", "/services", "/contact"];
   return paths.map((path) => ({
     url: `${siteUrl}${path}`,
   }));

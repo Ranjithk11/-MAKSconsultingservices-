@@ -5,7 +5,8 @@ import { recordOutbox, storeInboundWhatsApp, type Lead } from "@/services/databa
 import { normalizePhone } from "@/services/phone";
 
 export function whatsAppHref(message = studio.greeting) {
-  const number = (process.env.NEXT_PUBLIC_WHATSAPP_E164 ?? "").replace(/\D/g, "");
+  const configured = (process.env.NEXT_PUBLIC_WHATSAPP_E164 ?? "").replace(/\D/g, "");
+  const number = configured || studio.phoneE164;
   if (!number) return null;
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }

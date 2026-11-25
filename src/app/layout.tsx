@@ -21,24 +21,29 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${studio.name} · Kolkata`,
+    default: `${studio.scheme} · ${studio.city}`,
     template: `%s · ${studio.short}`,
   },
-  description:
-    "MAKS Consulting Services keeps the database, the host, the mail, the WhatsApp line, and the agents a firm already depends on. A practice in Kolkata.",
+  description: `${studio.scheme} is a ten-member, ten-month community savings group from ${studio.name} in ${studio.city}. Each member contributes 10 BOT a month.`,
   openGraph: {
-    title: studio.name,
-    description:
-      "Database storage, hosting, mail, WhatsApp, and agents — operated as one desk in Kolkata.",
+    title: studio.scheme,
+    description: `A ten-member, ten-month savings group. 10 BOT per person each month. The draw is at 7 PM on the 7th.`,
     locale: "en_IN",
     type: "website",
-    images: [{ url: "/images/practice-courtyard.jpg", width: 1200, height: 675 }],
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 639,
+        height: 313,
+        alt: "MAKS Business Consulting and Services",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: studio.name,
-    description:
-      "Database storage, hosting, mail, WhatsApp, and agents — operated as one desk in Kolkata.",
+    title: studio.scheme,
+    description: `A ten-member, ten-month savings group. 10 BOT per person each month.`,
+    images: ["/images/logo.png"],
   },
 };
 
@@ -48,14 +53,16 @@ const jsonLd = {
   name: studio.name,
   url: siteUrl,
   email: studio.email,
+  telephone: `+${studio.phoneE164}`,
   areaServed: "IN",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Kolkata",
+    addressLocality: studio.city,
+    addressRegion: studio.region,
     addressCountry: "IN",
   },
   description:
-    "Consulting practice for database storage, hosting, mail, WhatsApp, and agent services.",
+    `${studio.scheme}: a ten-member, ten-month community savings group. Contribution is 10 BOT per person each month.`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -67,7 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-full flex-col overflow-x-hidden">
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-forest focus:px-3 focus:py-2 focus:text-paper"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-forest focus:px-3 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>

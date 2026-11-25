@@ -1,23 +1,17 @@
-import { ClosingBand } from "@/components/home/ClosingBand";
-import { Engagements } from "@/components/home/Engagements";
-import { Hero } from "@/components/home/Hero";
-import { Marquee } from "@/components/home/Marquee";
-import { Method } from "@/components/home/Method";
-import { Notes } from "@/components/home/Notes";
-import { PracticeBand } from "@/components/home/PracticeBand";
-import { ServiceIndex } from "@/components/home/ServiceIndex";
+import { Advantages } from "@/components/scheme/Advantages";
+import { Hero } from "@/components/scheme/Hero";
+import { HowItWorks } from "@/components/scheme/HowItWorks";
+import { JoinBand } from "@/components/scheme/JoinBand";
+import { Schedule } from "@/components/scheme/Schedule";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Marquee />
-      <ServiceIndex />
-      <PracticeBand />
-      <Engagements />
-      <Method />
-      <Notes />
-      <ClosingBand />
+      <HowItWorks />
+      <Schedule />
+      <Advantages />
+      <JoinBand />
     </>
   );
 }

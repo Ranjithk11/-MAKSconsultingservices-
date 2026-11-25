@@ -1,16 +1,18 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
-import { services, studio } from "@/content/site";
+import { Logo } from "@/components/layout/Logo";
+import { joinWhatsAppHref, nav, studio } from "@/content/site";
 
 export function SiteFooter() {
   return (
     <footer className="border-t border-border pb-28">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="font-heading text-3xl tracking-tight">{studio.short}</p>
-          <p className="mt-3 max-w-xs text-sm leading-6 text-muted-foreground">
-            {studio.name}. A Kolkata practice for the systems a firm already runs on.
+          <Logo className="h-auto w-48 sm:w-56" />
+          <p className="mt-4 max-w-xs text-sm leading-6 text-muted-foreground">
+            {studio.scheme}. {studio.tagline}
           </p>
+          <p className="mt-4 text-sm text-foreground">{studio.motto}</p>
         </div>
         <div>
           <p className="text-[0.72rem] uppercase tracking-[0.22em] text-brass">Visit</p>
@@ -20,51 +22,60 @@ export function SiteFooter() {
             {studio.hours}
           </p>
           <a
+            href={`tel:+${studio.phoneE164}`}
+            className="mt-3 block text-sm underline decoration-brass underline-offset-4"
+          >
+            {studio.phoneDisplay}
+          </a>
+          <a
             href={`mailto:${studio.email}`}
-            className="mt-3 inline-block text-sm underline decoration-brass underline-offset-4"
+            className="mt-2 inline-block break-all text-sm underline decoration-brass underline-offset-4"
           >
             {studio.email}
           </a>
         </div>
         <div>
-          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-brass">Systems</p>
+          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-brass">Scheme</p>
           <ul className="mt-3 space-y-2 text-sm">
-            {services.map((service) => (
-              <li key={service.slug}>
+            {nav.map((item) => (
+              <li key={item.href}>
                 <Link
-                  href={`/services/${service.slug}`}
+                  href={item.href}
                   className="hover:underline hover:decoration-brass hover:underline-offset-4"
                 >
-                  {service.name}
+                  {item.label}
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/contact" className="hover:underline hover:underline-offset-4">
+                Participate
+              </Link>
+            </li>
           </ul>
         </div>
         <div>
-          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-brass">Desk</p>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li>
-              <Link href="/contact" className="hover:underline hover:underline-offset-4">
-                Write to the desk
-              </Link>
-            </li>
-            <li>
-              <Link href="/practice" className="hover:underline hover:underline-offset-4">
-                The practice
-              </Link>
-            </li>
-            <li>
-              <Link href="/desk" className="hover:underline hover:underline-offset-4">
-                Studio desk
-              </Link>
-            </li>
-          </ul>
+          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-brass">Join</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">
+            Send the word MAKS on WhatsApp. A person answers.
+          </p>
+          <a
+            href={joinWhatsAppHref()}
+            className="mt-3 inline-block text-sm underline decoration-brass underline-offset-4"
+          >
+            {studio.phoneDisplay}
+          </a>
+          <a
+            href={studio.websiteUrl}
+            className="mt-2 block text-sm underline decoration-brass underline-offset-4"
+          >
+            {studio.website}
+          </a>
         </div>
       </Container>
       <Container className="flex flex-col gap-2 border-t border-border py-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
         <p>© 2026 {studio.name}</p>
-        <p>Kolkata</p>
+        <p>{studio.city}</p>
       </Container>
     </footer>
   );

@@ -14,7 +14,8 @@ import { studio } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 export function WhatsAppPanel() {
-  const number = (process.env.NEXT_PUBLIC_WHATSAPP_E164 ?? "").replace(/\D/g, "");
+  const configured = (process.env.NEXT_PUBLIC_WHATSAPP_E164 ?? "").replace(/\D/g, "");
+  const number = configured || studio.phoneE164;
   const href = number
     ? `https://wa.me/${number}?text=${encodeURIComponent(studio.greeting)}`
     : null;
@@ -26,9 +27,9 @@ export function WhatsAppPanel() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-heading text-2xl">WhatsApp the studio</DialogTitle>
+          <DialogTitle className="font-heading text-2xl">Send MAKS on WhatsApp</DialogTitle>
           <DialogDescription>
-            The prepared note below is what the line would carry. A person still answers it.
+            The chat opens with the word MAKS already written. A person answers {studio.phoneDisplay}.
           </DialogDescription>
         </DialogHeader>
         <p className="border border-border bg-paper-deep/50 p-4 text-sm leading-6">{studio.greeting}</p>

@@ -11,7 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { nav, studio } from "@/content/site";
+import { Logo } from "@/components/layout/Logo";
+import { joinWhatsAppHref, nav, studio } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -20,15 +21,10 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur-md">
-      <div className="h-1 bg-forest" />
-      <div className="mx-auto flex h-[4.5rem] w-full max-w-6xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="block">
-          <span className="block font-heading text-[1.65rem] leading-none tracking-tight">
-            {studio.short}
-          </span>
-          <span className="mt-1 block text-[0.62rem] uppercase tracking-[0.22em] text-muted-foreground">
-            Consulting Services
-          </span>
+      <div className="h-1 bg-gradient-to-r from-[#071426] via-[#0e7c86] to-[#3ec6d4]" />
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-2.5 sm:px-8">
+        <Link href="/" className="block shrink-0" aria-label={studio.name}>
+          <Logo priority className="h-14 w-auto sm:h-16 lg:h-20" />
         </Link>
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {nav.map((item) => {
@@ -48,10 +44,19 @@ export function SiteHeader() {
               </Link>
             );
           })}
-          <Link href="/contact" className={cn(buttonVariants({ size: "lg" }), "h-10 px-4")}>
-            Book a session
-          </Link>
+          <a
+            href={joinWhatsAppHref()}
+            className={cn(buttonVariants({ size: "lg" }), "h-10 px-4")}
+          >
+            Send MAKS
+          </a>
         </nav>
+        <a
+          href={joinWhatsAppHref()}
+          className={cn(buttonVariants({ size: "lg" }), "h-10 px-3 lg:hidden")}
+        >
+          Join
+        </a>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger
             className="inline-flex h-10 items-center gap-2 px-1 text-sm lg:hidden"
@@ -61,7 +66,9 @@ export function SiteHeader() {
             Menu
           </DialogTrigger>
           <DialogContent className="top-0 left-0 h-dvh w-screen max-w-none translate-x-0 translate-y-0 rounded-none p-8 sm:max-w-none">
-            <DialogTitle className="font-heading text-3xl">MAKS</DialogTitle>
+            <DialogTitle>
+              <Logo className="h-16 w-auto" />
+            </DialogTitle>
             <nav className="mt-10 flex flex-col gap-5" aria-label="Mobile">
               <Link
                 href="/"
@@ -80,13 +87,13 @@ export function SiteHeader() {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/desk"
+              <a
+                href={joinWhatsAppHref()}
                 onClick={() => setOpen(false)}
-                className="mt-4 text-sm uppercase tracking-[0.18em] text-brass"
+                className="mt-6 text-sm uppercase tracking-[0.18em] text-brass"
               >
-                Studio desk
-              </Link>
+                Send MAKS on WhatsApp
+              </a>
             </nav>
           </DialogContent>
         </Dialog>
