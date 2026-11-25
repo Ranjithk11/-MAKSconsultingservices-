@@ -1,7 +1,12 @@
+import { getOffering, offerings, serviceSlugs } from "@/content/offerings";
+
+export { offerings, serviceSlugs, getOffering } from "@/content/offerings";
+export type { Offering, OfferingSlug } from "@/content/offerings";
+
 export const studio = {
   name: "MAKS Consulting Services",
   short: "MAKS",
-  scheme: "MAKS Coin Scheme",
+  scheme: "MAKS Business Consulting and Services",
   city: "Hyderabad",
   region: "Telangana",
   email: "maksconsulting.in@gmail.com",
@@ -15,7 +20,7 @@ export const studio = {
   greeting: "MAKS",
   tagline: "Empower Insights. Stronger Tomorrow.",
   motto: "Smart minds · Wise decisions · Sustainable growth",
-  partners: "CaryPact · BOT Chain",
+  // partners: "CaryPact · BOT Chain",
 };
 
 export function joinWhatsAppHref() {
@@ -103,8 +108,6 @@ export const advantages = [
   },
 ] as const;
 
-export const serviceSlugs = ["join", "schedule", "verification", "question"] as const;
-
 export type ServiceSlug = (typeof serviceSlugs)[number];
 
 export type Service = {
@@ -113,37 +116,45 @@ export type Service = {
   short: string;
 };
 
-export const services: Service[] = [
-  {
-    slug: "join",
-    name: "Join a group",
-    short: "Ask for a place in a group of ten.",
-  },
-  {
-    slug: "schedule",
-    name: "Payout schedule",
-    short: "Ask how the ten months are credited.",
-  },
-  {
-    slug: "verification",
-    name: "Member verification",
-    short: "Ask how a member is confirmed before the draw.",
-  },
-  {
-    slug: "question",
-    name: "A question",
-    short: "Something else about the scheme.",
-  },
-];
+export const services: Service[] = offerings.map((offering) => ({
+  slug: offering.slug,
+  name: offering.name,
+  short: offering.short,
+}));
 
 export function getService(slug: string) {
-  return services.find((service) => service.slug === slug);
+  const offering = getOffering(slug);
+  if (!offering) return undefined;
+  return { slug: offering.slug, name: offering.name, short: offering.short };
 }
 
 export const nav = [
-  { href: "/#how", label: "How it works" },
-  { href: "/#schedule", label: "Schedule" },
-  { href: "/#advantages", label: "Advantages" },
+  { href: "/services", label: "Services" },
+  { href: "/practice", label: "How we work" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+export const engagement = [
+  {
+    index: "01",
+    title: "Listen",
+    body: "A working session in Hyderabad or on a call. We ask what you need decided, not which page of a brochure to open.",
+  },
+  {
+    index: "02",
+    title: "Separate",
+    body: "The coin scheme, advice, consulting, digital holdings, a website, and a marketing note are different pieces of work. We name which one this is.",
+  },
+  {
+    index: "03",
+    title: "Write",
+    body: "You leave with a page: the rules, the brief, the runbook, or the suggestion. It is written so someone else in the room can read it.",
+  },
+  {
+    index: "04",
+    title: "Stop cleanly",
+    body: "A season ends. The accounts that should be yours are in your name. You can ask us to continue, or to leave.",
+  },
 ] as const;
 
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://127.0.0.1:43123";

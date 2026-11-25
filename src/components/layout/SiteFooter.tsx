@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { Logo } from "@/components/layout/Logo";
-import { joinWhatsAppHref, nav, studio } from "@/content/site";
+import { offerings } from "@/content/offerings";
+import { joinWhatsAppHref, studio } from "@/content/site";
 
 export function SiteFooter() {
   return (
@@ -35,23 +36,18 @@ export function SiteFooter() {
           </a>
         </div>
         <div>
-          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-brass">Scheme</p>
+          <p className="text-[0.72rem] uppercase tracking-[0.22em] text-brass">Services</p>
           <ul className="mt-3 space-y-2 text-sm">
-            {nav.map((item) => (
-              <li key={item.href}>
+            {offerings.map((offering) => (
+              <li key={offering.slug}>
                 <Link
-                  href={item.href}
+                  href={`/services/${offering.slug}`}
                   className="hover:underline hover:decoration-brass hover:underline-offset-4"
                 >
-                  {item.label}
+                  {offering.name}
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/contact" className="hover:underline hover:underline-offset-4">
-                Participate
-              </Link>
-            </li>
           </ul>
         </div>
         <div>

@@ -1,4 +1,5 @@
-import { payouts, scheme, steps, studio } from "@/content/site";
+import { getOffering, offerings } from "@/content/offerings";
+import { payouts, scheme, studio } from "@/content/site";
 
 export type DeskLink = { href: string; label: string };
 
@@ -9,43 +10,39 @@ type Intent = {
   links: DeskLink[];
 };
 
+const offeringIntents: Intent[] = offerings.map((offering) => ({
+  id: offering.slug,
+  phrases: [offering.name.toLowerCase(), offering.slug.replace("-", " "), offering.short.toLowerCase()],
+  content: `${offering.name}. ${offering.lede} ${offering.boundary}`,
+  links: [
+    { href: `/services/${offering.slug}`, label: offering.name },
+    { href: `/contact?service=${offering.slug}`, label: "Ask about this" },
+  ],
+}));
+
 const schedule = payouts
   .map((row) => `Month ${row.month}: ${row.contribution} in, ${row.payout} credited`)
   .join(". ");
 
 const intents: Intent[] = [
-  {
-    id: "overview",
-    phrases: ["what is", "coin", "scheme", "maks", "who are you", "about"],
-    content: `${studio.scheme} is a ten-member, ten-month savings group from ${studio.name}. ${scheme.lede} The draw is at ${scheme.draw}.`,
-    links: [
-      { href: "/#how", label: "How it works" },
-      { href: "/contact", label: "Ask to join" },
-    ],
-  },
-  {
-    id: "how",
-    phrases: ["how", "work", "group", "members", "contribute", "rules"],
-    content: steps.map((step) => `${step.index} ${step.title}. ${step.body}`).join(" "),
-    links: [{ href: "/#how", label: "The four rules" }],
-  },
+  ...offeringIntents,
   {
     id: "schedule",
-    phrases: ["payout", "schedule", "month", "credit", "92", "101", "bot", "winner"],
-    content: `Each person contributes 10 BOT every month. The credited payout rises from 92 BOT to 101 BOT. ${schedule}. ${scheme.afterLift}`,
-    links: [{ href: "/#schedule", label: "Payout schedule" }],
-  },
-  {
-    id: "join",
-    phrases: ["join", "participate", "whatsapp", "enroll", "register", "sign"],
-    content: `Send the word MAKS on WhatsApp to ${studio.phoneDisplay}, or write to ${studio.email}. A person replies. The draw is confirmed on a WhatsApp call.`,
-    links: [{ href: "/contact", label: "Write to us" }],
+    phrases: ["payout", "schedule", "92", "101", "bot", "ten members", "10 bot"],
+    content: `The coin scheme: ten members, 10 BOT each per month, draw at ${scheme.draw}. ${schedule}. ${scheme.afterLift}`,
+    links: [{ href: "/services/coin-scheme", label: "Coin scheme" }],
   },
   {
     id: "visit",
-    phrases: ["where", "hyderabad", "hyd", "address", "email", "phone", "call", "hours"],
-    content: `The practice is in ${studio.city}, ${studio.region}. Call ${studio.phoneDisplay} or write to ${studio.email}. Visits are by appointment, ${studio.hours}.`,
+    phrases: ["where", "hyderabad", "address", "email", "phone", "call", "hours"],
+    content: `${studio.name} is in ${studio.city}, ${studio.region}. Call ${studio.phoneDisplay} or write to ${studio.email}. ${studio.hours}.`,
     links: [{ href: "/contact", label: "Contact" }],
+  },
+  {
+    id: "services",
+    phrases: ["services", "what do you do", "who are you"],
+    content: `${studio.name} keeps six services: ${offerings.map((item) => item.name).join(", ")}. Each has its own page.`,
+    links: [{ href: "/services", label: "All services" }],
   },
 ];
 
@@ -58,12 +55,12 @@ function score(text: string, phrases: string[]) {
 
 export function answerDesk(message: string): { content: string; links: DeskLink[] } {
   const text = message.toLowerCase().replace(/\s+/g, " ").trim();
-  if (/^(hi|hello|hey|good morning|good afternoon|good evening|maks)[.! ]*$/.test(text)) {
+  if (/^(hi|hello|hey|maks)[.! ]*$/.test(text)) {
     return {
-      content: `This is the ${studio.short} desk. I can explain the ten-member scheme, the payout schedule, or how to send MAKS on WhatsApp.`,
+      content: `This is the ${studio.short} desk in ${studio.city}. I can explain any of the six services. A person still answers WhatsApp on ${studio.phoneDisplay}.`,
       links: [
-        { href: "/#how", label: "How it works" },
-        { href: "/contact", label: "Participate" },
+        { href: "/services", label: "Six services" },
+        { href: "/contact", label: "Write to us" },
       ],
     };
   }
@@ -79,11 +76,14 @@ export function answerDesk(message: string): { content: string; links: DeskLink[
   }
 
   if (!best) {
+    const named = getOffering("business-consulting");
     return {
-      content: `I can explain the ${studio.scheme}, the ten-month schedule, and how to join from ${studio.city}. Send MAKS on WhatsApp to ${studio.phoneDisplay} if you want a person.`,
+      content: named
+        ? `I can open any of the six services: ${offerings.map((item) => item.name).join(", ")}.`
+        : `I can explain the six services at ${studio.name}.`,
       links: [
-        { href: "/#schedule", label: "Schedule" },
-        { href: "/contact", label: "Write to us" },
+        { href: "/services", label: "All services" },
+        { href: "/contact", label: "Contact" },
       ],
     };
   }

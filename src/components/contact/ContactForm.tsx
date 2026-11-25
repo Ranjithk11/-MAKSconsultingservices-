@@ -25,7 +25,7 @@ export function ContactForm({
 }) {
   const startingService = serviceSlugs.includes(initialService as ServiceSlug)
     ? (initialService as ServiceSlug)
-    : "join";
+    : "coin-scheme";
   const startingChannel = initialChannel === "whatsapp" ? "whatsapp" : "mail";
 
   const [name, setName] = useState("");

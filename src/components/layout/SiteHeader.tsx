@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Logo } from "@/components/layout/Logo";
+import { offerings } from "@/content/offerings";
 import { joinWhatsAppHref, nav, studio } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -48,15 +49,15 @@ export function SiteHeader() {
             href={joinWhatsAppHref()}
             className={cn(buttonVariants({ size: "lg" }), "h-10 px-4")}
           >
-            Send MAKS
+            WhatsApp
           </a>
         </nav>
-        <a
-          href={joinWhatsAppHref()}
+        <Link
+          href="/contact"
           className={cn(buttonVariants({ size: "lg" }), "h-10 px-3 lg:hidden")}
         >
-          Join
-        </a>
+          Talk
+        </Link>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger
             className="inline-flex h-10 items-center gap-2 px-1 text-sm lg:hidden"
@@ -85,6 +86,17 @@ export function SiteHeader() {
                   className="font-heading text-4xl tracking-tight"
                 >
                   {item.label}
+                </Link>
+              ))}
+              <p className="mt-6 text-[0.72rem] uppercase tracking-[0.22em] text-brass">Each service</p>
+              {offerings.map((offering) => (
+                <Link
+                  key={offering.slug}
+                  href={`/services/${offering.slug}`}
+                  onClick={() => setOpen(false)}
+                  className="font-heading text-2xl tracking-tight"
+                >
+                  {offering.index} {offering.name}
                 </Link>
               ))}
               <a

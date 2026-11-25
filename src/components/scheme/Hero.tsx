@@ -14,10 +14,14 @@ export function Hero() {
       <Container className="relative grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-12 lg:gap-16 lg:py-28">
         <div className="lg:col-span-7">
           <p className="text-[0.72rem] uppercase tracking-[0.28em] text-cyan-100/80">
-            {studio.partners}
+            <Link href="/services" className="hover:text-white">
+              Services
+            </Link>
+            <span className="mx-2">/</span>
+            01
           </p>
           <h1 className="mt-5 max-w-xl text-balance font-heading text-[2.7rem] leading-[0.96] tracking-[-0.03em] text-white sm:text-6xl lg:text-7xl">
-            {studio.scheme}
+            MAKS Coin Scheme
           </h1>
           <p className="mt-5 font-heading text-2xl tracking-tight text-cyan-100 sm:text-3xl">
             {scheme.kicker}

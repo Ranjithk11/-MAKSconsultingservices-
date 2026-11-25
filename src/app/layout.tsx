@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     default: `${studio.scheme} · ${studio.city}`,
     template: `%s · ${studio.short}`,
   },
-  description: `${studio.scheme} is a ten-member, ten-month community savings group from ${studio.name} in ${studio.city}. Each member contributes 10 BOT a month.`,
+  description: `${studio.name} in ${studio.city}: coin scheme, financial advice, business consulting, digital investment, website development, and marketing suggestions.`,
   openGraph: {
-    title: studio.scheme,
-    description: `A ten-member, ten-month savings group. 10 BOT per person each month. The draw is at 7 PM on the 7th.`,
+    title: studio.name,
+    description: `Six services from one desk in ${studio.city}. Each service has its own page.`,
     locale: "en_IN",
     type: "website",
     images: [
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: studio.scheme,
-    description: `A ten-member, ten-month savings group. 10 BOT per person each month.`,
+    title: studio.name,
+    description: `Six services from one desk in ${studio.city}.`,
     images: ["/images/logo.png"],
   },
 };
@@ -62,7 +62,7 @@ const jsonLd = {
     addressCountry: "IN",
   },
   description:
-    `${studio.scheme}: a ten-member, ten-month community savings group. Contribution is 10 BOT per person each month.`,
+    `${studio.name} in ${studio.city}. Coin scheme, financial advice, business consulting, digital investment, websites, and marketing suggestions.`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
