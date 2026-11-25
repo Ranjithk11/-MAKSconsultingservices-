@@ -2,11 +2,18 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/layout/SectionLabel";
+import { BrandTitle, ServiceSubline } from "@/components/layout/BrandTitle";
 import { offerings, type Offering } from "@/content/offerings";
 import { joinWhatsAppHref } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-export function OfferingView({ offering }: { offering: Offering }) {
+export function OfferingView({
+  offering,
+  extra,
+}: {
+  offering: Offering;
+  extra?: React.ReactNode;
+}) {
   const others = offerings.filter((item) => item.slug !== offering.slug);
 
   return (
@@ -17,14 +24,10 @@ export function OfferingView({ offering }: { offering: Offering }) {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(14,180,196,0.28),transparent_52%),radial-gradient(ellipse_at_bottom_left,rgba(22,78,168,0.5),transparent_48%)]"
         />
         <Container className="relative py-16 sm:py-20 lg:py-24">
-          <p className="text-[0.72rem] uppercase tracking-[0.28em] text-cyan-100/80">
-            <Link href="/services" className="hover:text-white">
-              Services
-            </Link>
-            <span className="mx-2">/</span>
-            {offering.index}
-          </p>
-          <h1 className="mt-5 max-w-3xl text-balance font-heading text-4xl leading-[0.98] tracking-tight text-white sm:text-6xl">
+          <BrandTitle size="section" />
+          <ServiceSubline current={offering.slug} />
+          <h1 className="mt-8 max-w-3xl text-balance font-heading text-4xl leading-[0.98] tracking-tight text-white sm:text-6xl">
+            <span className="mr-3 text-cyan-200/80">{offering.index}</span>
             {offering.name}
           </h1>
           <p className="mt-5 max-w-2xl font-heading text-2xl tracking-tight text-cyan-100 sm:text-3xl">
@@ -109,6 +112,8 @@ export function OfferingView({ offering }: { offering: Offering }) {
           </div>
         </Container>
       </section>
+
+      {extra}
 
       <section className="py-16 sm:py-20">
         <Container>

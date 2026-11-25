@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrandTitle, ServiceSubline } from "@/components/layout/BrandTitle";
 import { Container } from "@/components/layout/Container";
 import { SectionLabel } from "@/components/layout/SectionLabel";
 import { offerings } from "@/content/offerings";
@@ -13,10 +14,11 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <Container className="py-16 sm:py-20 lg:py-24">
-      <SectionLabel>Services</SectionLabel>
-      <h1 className="mt-4 max-w-3xl font-heading text-4xl tracking-tight sm:text-6xl">
-        Six services, each with its own page.
-      </h1>
+      <SectionLabel>{studio.city}</SectionLabel>
+      <div className="mt-4">
+        <BrandTitle tone="onLight" />
+      </div>
+      <ServiceSubline tone="onLight" />
       <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
         Read the one that matches the work. The coin scheme keeps its group rules and payout table. The others are advice, an engagement, or a build — and they say so.
       </p>

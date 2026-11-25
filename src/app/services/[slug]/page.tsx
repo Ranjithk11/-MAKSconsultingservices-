@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Advantages } from "@/components/scheme/Advantages";
-import { Hero } from "@/components/scheme/Hero";
-import { HowItWorks } from "@/components/scheme/HowItWorks";
-import { JoinBand } from "@/components/scheme/JoinBand";
 import { Schedule } from "@/components/scheme/Schedule";
 import { OfferingView } from "@/components/services/OfferingView";
 import { getOffering, serviceSlugs } from "@/content/offerings";
@@ -35,17 +31,10 @@ export default async function ServicePage({
   const offering = getOffering(slug);
   if (!offering) notFound();
 
-  if (offering.slug === "coin-scheme") {
-    return (
-      <>
-        <Hero />
-        <HowItWorks />
-        <Schedule />
-        <Advantages />
-        <JoinBand />
-      </>
-    );
-  }
-
-  return <OfferingView offering={offering} />;
+  return (
+    <OfferingView
+      offering={offering}
+      extra={offering.slug === "coin-scheme" ? <Schedule /> : undefined}
+    />
+  );
 }
